@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hina-backend
+  namespace: sorasaki-hina
+  labels:
+    app: hina-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hina-backend
+  template:
+    metadata:
+      labels:
+        app: hina-backend
+    spec:
+      containers:
+      - name: server
+        image: 'gitea.konchin.com/services/sorasaki-hina-backend:latest'
+        env:
+          - name: MONGODB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: MONGODB_HOST
+          - name: MONGODB_USER
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: MONGODB_USER
+          - name: MONGODB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: MONGODB_PASS
+          - name: MINIO_ACCESSKEY
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: MINIO_ACCESSKEY
+          - name: MINIO_SECRETKEY
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: MINIO_SECRETKEY
+          - name: BOT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: BOT_TOKEN
+          - name: BOT_ID
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: BOT_ID
+          - name: GUILD_ID
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: GUILD_ID
+          - name: MY_ID
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: MY_ID
+          - name: ME_ID
+            valueFrom:
+              secretKeyRef:
+                name: hina-backend
+                key: ME_ID
+      imagePullSecrets:
+      - name: regcred

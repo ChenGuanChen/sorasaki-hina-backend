@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: sorasaki-hina
+  name: hina-backend
+  labels:
+    app: hina-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: hina-backend
+  ports:
+  - name: hina-port
+    port: 7020
+    targetPort: 7020
